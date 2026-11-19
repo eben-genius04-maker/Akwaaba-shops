@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="1024" height="1024">
+  <!-- Placeholder logo (an open doorway: "Akwaaba" means welcome).
+       Replace with your real logo: save it as branding/logo.png (1024×1024) and run: npm run icons -->
+  <rect width="32" height="32" rx="8" fill="#0b6e4f"/>
+  <path d="M9 25V14a7 7 0 0 1 14 0v11" fill="none" stroke="#e3a03a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13.5 25v-8a2.5 2.5 0 0 1 5 0v8" fill="#e3a03a"/>
+</svg>

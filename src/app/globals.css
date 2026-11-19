@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/* "dark:" utilities follow the .dark class on <html> (set by the theme switch) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Akwaaba Shops design tokens */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-paper: #faf7f2;      /* page background: warm off-white */
+  --color-surface: #ffffff;    /* cards */
+  --color-ink: #1b1814;        /* main text */
+  --color-muted: #6d645a;      /* secondary text */
+  --color-line: #e7dfd3;       /* borders */
+  --color-line-strong: #d3c8b8;
+
+  --color-brand: #0b6e4f;      /* deep forest green */
+  --color-brand-hover: #085a40;
+  --color-brand-soft: #e6f2ec;
+  --color-gold: #e3a03a;       /* kente gold */
+  --color-gold-soft: #fbf0dc;
+  --color-clay: #b4472b;       /* terracotta accent */
+
+  --color-danger: #b42318;
+  --color-danger-soft: #fdeceb;
+  --color-warning: #8a5a00;
+  --color-warning-soft: #fdf3dc;
+  --color-success: #0b6e4f;
+  --color-success-soft: #e6f2ec;
+
+  /* Text on coloured backgrounds (switch with the theme) */
+  --color-on-brand: #ffffff;
+  --color-on-danger: #ffffff;
+  --color-on-gold: #1b1814;
+}
+
+/* Dark mode: warm night tones. Every pair checked for readable contrast (4.5:1+). */
+:root.dark {
+  color-scheme: dark;
+  --color-paper: #12100d;
+  --color-surface: #1c1915;
+  --color-ink: #f3eee7;
+  --color-muted: #a89e91;
+  --color-line: #2e2923;
+  --color-line-strong: #463e35;
+
+  --color-brand: #3fb98a;
+  --color-brand-hover: #5cc89d;
+  --color-brand-soft: #15322a;
+  --color-gold: #e9ad4f;
+  --color-gold-soft: #3b2e17;
+  --color-clay: #dd7a5a;
+
+  --color-danger: #f27a6e;
+  --color-danger-soft: #3a1c19;
+  --color-warning: #f0b84f;
+  --color-warning-soft: #36290f;
+  --color-success: #4cc493;
+  --color-success-soft: #15322a;
+
+  --color-on-brand: #08140f;
+  --color-on-danger: #1a0806;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Woven stripe used as a quiet brand accent */
+.kente-band {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-brand) 0 18px,
+    var(--color-gold) 18px 30px,
+    var(--color-ink) 30px 36px,
+    var(--color-gold) 36px 48px,
+    var(--color-clay) 48px 60px,
+    var(--color-gold) 60px 66px
+  );
+}
+
+.kente-weave {
+  background-color: #0b6e4f;
+  background-image:
+    repeating-linear-gradient(90deg, rgb(227 160 58 / 0.9) 0 10px, transparent 10px 44px),
+    repeating-linear-gradient(0deg, rgb(27 24 20 / 0.35) 0 6px, transparent 6px 30px),
+    repeating-linear-gradient(90deg, transparent 0 22px, rgb(180 71 43 / 0.85) 22px 28px, transparent 28px 44px);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* Adinkra heritage pattern: Gye Nyame, Sankofa, Adinkrahene, Dwennimmen, Akoma,
+   Nsoromma, Nkyinkyim and Mpatapo, drawn as one tile (public/patterns/adinkra.svg).
+   It's a mask filled with the text colour, so it follows light and dark mode. */
+.adinkra-bg {
+  position: relative;
+  isolation: isolate;
+}
+.adinkra-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-ink);
+  opacity: 0.05;
+  -webkit-mask-image: url("/patterns/adinkra.svg");
+  mask-image: url("/patterns/adinkra.svg");
+  -webkit-mask-size: 480px 480px;
+  mask-size: 480px 480px;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+}
+.dark .adinkra-bg::before {
+  opacity: 0.07;
+}
+@media print {
+  .adinkra-bg::before { display: none; }
 }
